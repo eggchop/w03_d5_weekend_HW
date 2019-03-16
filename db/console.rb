@@ -17,11 +17,28 @@ film1.save
 film2 = Film.new({'title'=>'Lion King', 'price'=> 5})
 film2.save
 
-# binding.pry
 ticket1 = Ticket.new({'customer_id' => customer1.id,'film_id' => film1.id})
-# ticket1.save
-# ticket2 = Ticket.new({'customer_id'=>customer1.id,'film_id'=>film2.id})
-# ticket2.save
-# ticket3 = Ticket.new({'customer_id'=>customer2.id,'film_id'=>film2.id})
-# ticket3.save
-# nil
+ticket1.save
+ticket2 = Ticket.new({'customer_id'=>customer1.id,'film_id'=>film2.id})
+ticket2.save
+ticket3 = Ticket.new({'customer_id'=>customer2.id,'film_id'=>film2.id})
+ticket3.save
+
+
+# p Customer.all
+# p Film.all
+# p Ticket.all
+# customer1.delete
+# film1.delete
+# ticket1.delete
+# film1.title = "Baby"
+# film1.update
+# p film1.title
+# binding.pry
+# ticket4 = Ticket.new()
+# ticket4.customer_id = 2
+# ticket4.film_id = 2
+# ticket4.update
+# p ticket4
+# p customer1.films
+p film1.customers
