@@ -64,6 +64,7 @@ class Customer
 
   def change_funds(amount)
     @funds += amount
+    self.update
   end
 
   def ticket_count

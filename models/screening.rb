@@ -41,6 +41,7 @@ class Screening
   #Advanced Extensions
   def sell_ticket
     @ticket_number - 1
+    self.update
   end
 
   def tickets_available?
