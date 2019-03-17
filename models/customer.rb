@@ -54,7 +54,7 @@ class Customer
 
   #Basic Extention + Updated for Advanced Extension
   def buy_ticket(film,screening)
-    return 'Sorry, that screening is fully sold out.' if screening.tickets_available?
+    return 'Sorry, that screening is fully sold out.' if !screening.tickets_available?
     return 'You do not have sufficient funds' if @funds > film.get_film_price
     screening.sell_ticket
     change_funds(-film.get_film_price)
