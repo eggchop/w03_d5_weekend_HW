@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner.rb')
+require_relative('./film')
 
 class Customer
   attr_reader :id
@@ -51,5 +52,25 @@ class Customer
     return film_array.map{|film| Film.new(film)}
   end
 
+  #Basic Extention + Updated for Advanced Extension
+  def buy_ticket(film,screening)
+    if screening.tickets_available?
+      screening.sell_ticket
+      film_price = film.get_film_price
+      change_funds(-film_price)
+      new_ticket = Ticket.new({'customer_id' => @id,'film_id' => film.get_id,'screening_id'=>screening.id})
+      new_ticket.save
+    else
+      return 'Sorry, that screening is fully sold out.'
+    end
+  end
+
+  def change_funds(amount)
+    @funds += amount
+  end
+
+  def ticket_count
+    return self.films.count
+  end
 
 end

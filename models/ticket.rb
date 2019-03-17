@@ -2,11 +2,12 @@ require_relative('../db/sql_runner.rb')
 
 class Ticket
   attr_reader :id
-  attr_accessor :customer_id, :film_id
+  attr_accessor :customer_id, :film_id, :screening_id
   def initialize(options={})
     @id = options['id'] if options['id']
     @customer_id = options['customer_id']
     @film_id = options['film_id']
+    @screening_id = options['screening_id']
 
   end
 
@@ -16,8 +17,8 @@ class Ticket
   end
 
   def save
-    sql = "INSERT INTO tickets (customer_id, film_id) VALUES ($1,$2) RETURNING id"
-    values = [@customer_id,@film_id]
+    sql = "INSERT INTO tickets (customer_id, film_id, screening_id) VALUES ($1,$2,$3) RETURNING id"
+    values = [@customer_id,@film_id,@screening_id]
     @id = SqlRunner.run(sql,values).first['id']
   end
 
@@ -29,8 +30,8 @@ class Ticket
 
   # How does this work with foreign key contraint?
   def update
-    sql = "UPDATE tickets SET (customer_id,film_id) = ($1,$2) WHERE id = $3"
-    values = [@customer_id,@film_id,@id]
+    sql = "UPDATE tickets SET (customer_id,film_id,screening_id) = ($1,$2,$3) WHERE id = $4"
+    values = [@customer_id,@film_id,@screening_id,@id]
     SqlRunner.run(sql,values)
   end
 

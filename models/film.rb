@@ -50,4 +50,36 @@ class Film
     customer_array = SqlRunner.run(sql,values)
     return customer_array.map{|customer| Customer.new(customer)}
   end
+
+  #Basic Extention
+  def get_film_price
+    return @price
+  end
+
+  def get_id
+    return @id
+  end
+
+  def customer_count
+    return self.customers.count
+  end
+
+  #Advanced Extensions
+  def most_popular_time
+    sql = 'SELECT screenings.start_time, COUNT(screenings.start_time) AS counts
+          FROM films
+          JOIN tickets
+          ON films.id = tickets.film_id
+          JOIN screenings
+          ON screenings.id = tickets.screening_id
+          WHERE films.id = $1
+          GROUP BY screenings.start_time
+          ORDER BY counts DESC
+          LIMIT 1
+          '
+    values = [@id]
+    popular_time_hash = SqlRunner.run(sql,values).first
+    return popular_time_hash['start_time']
+  end
+
 end
