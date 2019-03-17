@@ -56,8 +56,7 @@ class Customer
   def buy_ticket(film,screening)
     if screening.tickets_available? && @funds > film.get_film_price
       screening.sell_ticket
-      film_price = film.get_film_price
-      change_funds(-film_price)
+      change_funds(-film.get_film_price)
       new_ticket = Ticket.new({'customer_id' => @id,'film_id' => film.get_id,'screening_id'=>screening.id})
       new_ticket.save
     else
