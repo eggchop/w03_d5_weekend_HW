@@ -54,14 +54,12 @@ class Customer
 
   #Basic Extention + Updated for Advanced Extension
   def buy_ticket(film,screening)
-    if screening.tickets_available? && @funds > film.get_film_price
-      screening.sell_ticket
-      change_funds(-film.get_film_price)
-      new_ticket = Ticket.new({'customer_id' => @id,'film_id' => film.get_id,'screening_id'=>screening.id})
-      new_ticket.save
-    else
-      return 'Sorry, that screening is fully sold out.'
-    end
+    return 'Sorry, that screening is fully sold out.' if screening.tickets_available?
+    return 'You do not have sufficient funds' if @funds > film.get_film_price
+    screening.sell_ticket
+    change_funds(-film.get_film_price)
+    new_ticket = Ticket.new({'customer_id' => @id,'film_id' => film.get_id,'screening_id'=>screening.id})
+    new_ticket.save
   end
 
   def change_funds(amount)
