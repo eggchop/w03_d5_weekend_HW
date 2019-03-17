@@ -54,7 +54,7 @@ class Customer
 
   #Basic Extention + Updated for Advanced Extension
   def buy_ticket(film,screening)
-    if screening.tickets_available?
+    if screening.tickets_available? && @funds > film.get_film_price
       screening.sell_ticket
       film_price = film.get_film_price
       change_funds(-film_price)

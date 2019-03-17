@@ -75,11 +75,9 @@ class Film
           WHERE films.id = $1
           GROUP BY screenings.start_time
           ORDER BY counts DESC
-          LIMIT 1
-          '
+          LIMIT 1'
     values = [@id]
-    popular_time_hash = SqlRunner.run(sql,values).first
-    return popular_time_hash['start_time']
+    return SqlRunner.run(sql,values).first['start_time']
   end
 
 end
